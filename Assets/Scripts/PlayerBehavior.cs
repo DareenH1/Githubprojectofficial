@@ -35,6 +35,9 @@ public class PlayerBehavior : MonoBehaviour
 
     void Movement()
     {
+        float clampedVerticalPosition =
+            Mathf.Clamp(transform.position.y,
+            -verticalScreenLimit, 0);
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         transform.Translate(new Vector3(horizontalInput, verticalInput, 0) * Time.deltaTime * speed);
@@ -48,15 +51,15 @@ public class PlayerBehavior : MonoBehaviour
 
             transform.position = new Vector3(horizontalScreenLimit, transform.position.y, 0);
         }
-        if (transform.position.y > verticalScreenLimit)
+        if (transform.position.y > 0)
         {
 
-            transform.position = new Vector3(transform.position.x, -verticalScreenLimit, 0);
+            transform.position = new Vector3(transform.position.x, -horizontalScreenLimit, 0);
         }
-        else if (transform.position.y < -verticalScreenLimit)
+        else if (transform.position.y < -horizontalScreenLimit)
         {
 
-            transform.position = new Vector3(transform.position.x, verticalScreenLimit, 0);
+            transform.position = new Vector3(transform.position.x, horizontalScreenLimit, 0);
         }
 
     }
